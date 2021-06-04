@@ -1,4 +1,4 @@
-Step 1: Create a virtual environment using virtualenvwrapper
+**Step 1: Create a virtual environment using virtualenvwrapper**
 
 Install it first if you don't have it installed already
 
@@ -9,11 +9,11 @@ source /usr/local/bin/virtualenvwrapper.sh
 ```
 
 Create a requirements.txt file to install some pip packages
-------------
+```
 dvc
 dvc[gdrive]
 scikit-learn
-------------
+```
 
 Create a virtual environment using python3 interpreter, and give it a name.
 For this example we'll name it as 'wine_quality'
@@ -22,7 +22,8 @@ For this example we'll name it as 'wine_quality'
 mkvirtualenv --python=/usr/bin/python3 -r requirements.txt wine_quality  
 ```
 
-Step 2: Create a structure like the following
+**Step 2: Create a structure like the following**
+
 ------------
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
@@ -40,9 +41,9 @@ Step 2: Create a structure like the following
     │   ├── __init__.py    <- Makes src a Python module
 ------------
 
-Step 3: Download the wine quality dataset from https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009 and put it into the 'data_given' folder
+**Step 3: Download the wine quality dataset from https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009 and put it into the 'data_given' folder**
 
-Step 4: Initialize git and dvc. Then track the dataset using dvc.
+**Step 4: Initialize git and dvc. Then track the dataset using dvc.**
 
 ```bash
 git init
@@ -63,7 +64,7 @@ However, we didn't track anything with git so far, thus we can add all files at 
 git add . && git commit -m "First commit"
 ```
 
-Step 5: Link the local repository to a remote one, and upload your files
+**Step 5: Link the local repository to a remote one, and upload your files**
 
 ```bash
 git branch -M main
