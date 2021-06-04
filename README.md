@@ -50,3 +50,23 @@ dvc init
 
 dvc add data_given/winequality.csv
 ```
+
+A folder called .dvc will be created when started. It'll let you track the changes with git when the dataset is added it by just typing:
+
+```bash
+git add data_given/.gitignore data_given/winequality.csv.dvc
+```
+
+However, we didn't track anything with git so far, thus we can add all files at once and commit the changes
+
+```bash
+git add . && git commit -m "First commit"
+```
+
+Step 5: Link the local repository to a remote one, and upload your files
+
+```bash
+git branch -M main
+git remote add origin https://github.com/{your_username}/wine_quality.git
+git push -u origin main
+```
