@@ -13,6 +13,7 @@ import argparse
 import joblib
 import json
 
+
 def eval_metrics(groundtruth, predictions):
 
     rmse = np.sqrt(mean_squared_error(groundtruth, predictions))
@@ -21,8 +22,9 @@ def eval_metrics(groundtruth, predictions):
 
     return rmse, mae, r2
 
+
 def train_and_evaluate(config):
-    
+
     train_data_path = config["split_data"]["train_path"]
     test_data_path = config["split_data"]["test_path"]
     random_state = config["base"]["random_state"]
@@ -34,7 +36,7 @@ def train_and_evaluate(config):
 
     train = pd.read_csv(train_data_path)
     test = pd.read_csv(test_data_path)
-    
+
     train_y = train[target]
     test_y = test[target]
 
@@ -45,19 +47,47 @@ def train_and_evaluate(config):
                        l1_ratio=l1_ratio,
                        random_state=random_state)
     model.fit(train_x, train_y)
-    
+
     predicted_qualities = model.predict(test_x)
-    
+
     rmse, mae, r2 = eval_metrics(test_y, predicted_qualities)
-    
-    print(rmse, mae, r2)
+
+    print("Elasticnet model (alpha=%f, l1_ratio=%f):" % (alpha, l1_ratio))
+    print(f"  RMSE: {rmse}")
+    print(f"  MAE: {mae}")
+    print(f"  R2: {r2}")
+
+    #####################################################
+    scores_file = config["reports"]["scores"]
+    params_file = config["reports"]["params"]
+
+    with open(scores_file, "w") as f:
+        scores = {
+            "rmse": rmse,
+            "mae": mae,
+            "r2": r2
+        }
+        json.dump(scores, f, indent=4)
+
+    with open(params_file, "w") as f:
+        params = {
+            "alpha": alpha,
+            "l1_ratio": l1_ratio,
+        }
+        json.dump(params, f, indent=4)
+    #####################################################
+
+    os.makedirs(model_dir, exist_ok=True)
+    model_path = os.path.join(model_dir, "model.joblib")
+
+    joblib.dump(model, model_path)
 
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
     args.add_argument("--config", default="params.yaml")
     parsed_args = args.parse_args()
-    
+
     config = read_params(parsed_args.config)
 
     train_and_evaluate(config)
