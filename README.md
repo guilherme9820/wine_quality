@@ -13,6 +13,11 @@ Create a requirements.txt file to install some pip packages
 dvc
 dvc[gdrive]
 scikit-learn
+pandas
+pyyaml
+numpy
+pytest
+tox
 ```
 
 Create a virtual environment using python3 interpreter, and give it a name.
