@@ -25,6 +25,9 @@ files = [
     join(["src", "__init__.py"]),
     join(["reports", "params.json"]),
     join(["reports", "scores.json"]),
+    join(["tests", "conftest.py"]),
+    join(["tests", "test_config.py"]),
+    join(["tests", "__init__.py"]),
     "README.md"]
 
 for file_ in files:
