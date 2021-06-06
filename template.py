@@ -36,6 +36,7 @@ files = [
     join(["webapp", "templates", "404.html"]),
     join(["webapp", "templates", "base.html"]),
     join(["webapp", "static", "script", "index.js"]),
+    join([".github", "workflows", "ci-cd.yaml"]),
     "README.md"]
 
 for file_ in files:
